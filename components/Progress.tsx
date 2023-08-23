@@ -13,7 +13,7 @@ const Progress: FC<ProgressProps> = ({ index, phase, toggle, disabled }) => {
           <Text style={styles.number}>{index + 1}</Text>
         </View>
         <Text style={styles.text}>{title}</Text>
-        {completed && <Ionicons name='checkmark-circle' style={styles.icon} size={30} />}
+        {completed && <Ionicons name='checkmark-circle' style={styles.icon} size={28} />}
       </View>
       <View style={styles.tasks}>
         {tasks.map(({ name, done }, taskIndex) => (

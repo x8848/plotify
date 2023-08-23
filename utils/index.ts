@@ -1,6 +1,7 @@
 import * as SecureStore from 'expo-secure-store'
 
 export const PHASES_STORE_KEY = 'phases'
+export const RANDOM_FACT_URL = 'https://uselessfacts.jsph.pl/random.json'
 
 export const getJsonFromStore = async <T>(key: string) => {
   try {

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Progress from '../components/Progress'
-import { PHASES_STORE_KEY, getJsonFromStore, saveJsonToStore } from '../utils'
+import { PHASES_STORE_KEY, RANDOM_FACT_URL, getJsonFromStore, saveJsonToStore } from '../utils'
 import { mockPhases } from '../utils/mock'
 import { Phase } from '../utils/types'
 
 const Phases = () => {
+  const [randomFact, setRandomFact] = useState('')
   const [phases, setPhases] = useState<Phase[]>([])
 
   useEffect(() => {
@@ -25,6 +26,16 @@ const Phases = () => {
     )
     setPhases(updated)
     await saveJsonToStore<Phase[]>(PHASES_STORE_KEY, updated)
+
+    if (updated.every(phase => phase.tasks.every(task => task.done))) {
+      const response = await fetch(RANDOM_FACT_URL)
+      if (response.ok) {
+        const data = await response.json()
+        setRandomFact(data.text)
+      }
+    } else {
+      setRandomFact('')
+    }
   }
 
   return (
@@ -36,6 +47,7 @@ const Phases = () => {
           key={index}
         />
       ))}
+      {randomFact && <Text style={styles.fact}>{randomFact}</Text>}
     </View>
   )
 }
@@ -46,5 +58,8 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     fontWeight: '700',
+  },
+  fact: {
+    marginTop: 20,
   },
 })
