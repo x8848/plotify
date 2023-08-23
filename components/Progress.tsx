@@ -7,7 +7,7 @@ import { ProgressProps } from '../utils/types'
 const Progress: FC<ProgressProps> = ({ index, phase, toggle, disabled }) => {
   const { title, tasks, completed } = phase
   return (
-    <View style={styles.phase} key={index}>
+    <View style={styles.phase}>
       <View style={styles.title}>
         <View style={styles.circle}>
           <Text style={styles.number}>{index + 1}</Text>
@@ -23,7 +23,7 @@ const Progress: FC<ProgressProps> = ({ index, phase, toggle, disabled }) => {
               value={done}
               onValueChange={() => toggle(index, taskIndex)}
               disabled={disabled}
-            ></Checkbox>
+            />
             <Text>{name}</Text>
           </View>
         ))}
